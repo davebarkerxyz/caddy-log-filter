@@ -37,6 +37,7 @@ async function parse(msg) {
         host: req.request.host,
         uri: uri,
         ua: req.request.headers["User-Agent"] ? req.request.headers["User-Agent"][0] : "",
+        referrer: req.request.headers["Referer"] ? req.request.headers["Referer"][0] : "",
         size: req.size,
         status: req.status,
         duration: req.duration
