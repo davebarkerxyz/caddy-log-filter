@@ -1,0 +1,10 @@
+http://localhost {
+    encode gzip
+    root * site/
+    file_server
+    log {
+        output net localhost:9919 {
+            soft_start
+        }
+    }
+}

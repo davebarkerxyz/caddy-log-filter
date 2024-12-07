@@ -1,0 +1,10 @@
+http://localhost {
+    encode gzip
+    root * /srv
+    file_server
+    log {
+        output net caddy-log-filter:9919 {
+            soft_start
+        }
+    }
+}

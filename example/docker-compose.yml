@@ -1,0 +1,20 @@
+services:
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - $PWD/Caddyfile:/etc/caddy/Caddyfile
+      - $PWD/site:/srv
+
+  caddy-log-filter:
+    image: denoland/deno
+    container_name: caddy-log-filter
+    restart: unless-stopped
+    volumes:
+      - $PWD/logs:/logs
+      - $PWD/..:/app
+    environment:
+      - LOG_FILE=/logs/access.log
+    command: "deno --allow-net --allow-env --allow-read=/logs --allow-write=/logs /app/log-filter.js"
