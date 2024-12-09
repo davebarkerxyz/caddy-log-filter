@@ -2,6 +2,7 @@ import { TextLineStream } from "jsr:@std/streams";
 
 const host = Deno.env.get("HOST") ? Deno.env.get("HOST") : "0.0.0.0";
 const port = Deno.env.get("PORT") ? Deno.env.get("PORT") : 9919;
+const ignore_uris = [];
 
 let outFile;
 let writer;
@@ -28,6 +29,10 @@ async function parse(msg) {
     let uri = req.request.uri;
     if (uri.includes("?")) {
         uri = req.request.uri.split("?").slice(0, -1)[0];
+    }
+
+    if (ignore_uris.includes(uri)) {
+        return;
     }
 
     const entry = {
